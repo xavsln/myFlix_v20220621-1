@@ -1,9 +1,14 @@
 const express = require('express'),
-  fs = require('fs');
+  fs = require('fs'),
+  morgan = require('morgan');
 
 const app = express();
+const port = 8080;
 
 const topmovies = require('./topmovies.js');
+
+// Setup the logger
+app.use(morgan('common'));
 
 // GET requests
 app.use(express.static('public'));
@@ -16,6 +21,6 @@ app.get('/', (req, res) => {
   res.send('Welcome to myFlix!');
 });
 
-app.listen(8080, () => {
-  console.log('App is running on port 8080');
+app.listen(port, () => {
+  console.log(`App is running on port ${port}`);
 });
