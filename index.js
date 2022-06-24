@@ -6,6 +6,8 @@ const app = express();
 const topmovies = require('./topmovies.js');
 
 // GET requests
+app.use(express.static('public'));
+
 app.get('/movies', (req, res) => {
   res.json(topmovies.topMoviesList);
 });
