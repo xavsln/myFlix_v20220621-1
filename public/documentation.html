@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/styles.css" />
     <title>myFlix - Movie API</title>
   </head>
   <body>
@@ -34,5 +35,158 @@
       <li>Node.js</li>
       <li>Express</li>
     </ul>
+
+    <h2>API endpoints documentation:</h2>
+    <table>
+      <tr>
+        <th>Request description</th>
+        <th>Endpoint URL and query parameters</th>
+        <th>HTTP Method</th>
+        <th>Request body data format</th>
+        <th>Response body data format</th>
+      </tr>
+      <tr>
+        <td>Return a list of ALL movies to the user</td>
+        <td>/movies</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about all the movies</td>
+      </tr>
+      <tr>
+        <td>
+          Return data (description, genre, director, image URL, whether it’s
+          featured or not) about a single movie by title to the user
+        </td>
+        <td>/movies/<b>[movieTitle]</b></td>
+        <td>GET</td>
+        <td>None</td>
+        <td>
+          A JSON object holding data about a single movie, containing an ID,
+          title, description, genre, director, image URL, whether it’s featured
+          or not properties. Example: { "id": "1", "title": "Blade Runner",
+          "director": { "name": "Ridley Scott", "bio": "Sir Ridley Scott is an
+          English film director and producer. He has directed, among others, the
+          science fiction films Alien, Blade Runner and The Martian, the road
+          crime film Thelma & Louise, the historical drama film Gladiator, and
+          the war film Black Hawk Down.", "birthyear": 1937, "deathyear": null
+          }, "description": "Rick Deckard, an ex-policeman, becomes a special
+          agent with a mission to exterminate a group of violent androids. As he
+          starts getting deeper into his mission, he questions his own
+          identity.", "genre": { "name": "Science fiction", "description":
+          "Science fiction is a genre of speculative fiction which typically
+          deals with imaginative and futuristic concepts such as advanced
+          science and technology, space exploration, time travel, parallel
+          universes, ..." }, "imageUrl":
+          "https://upload.wikimedia.org/wikipedia/en/9/9f/Blade_Runner_%281982_poster%29.png",
+          "featured": false }
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Return data about a genre (description) by name/title (e.g.,
+          “Thriller”)
+        </td>
+        <td>/genres/<b>[genreName]</b></td>
+        <td>GET</td>
+        <td>None</td>
+        <td>
+          A JSON object holding data about a single genre, containing a name,
+          and a genrename properties. Example: { "name": "Science fiction",
+          "description": "Science fiction is a genre of speculative fiction
+          which typically deals with imaginative and futuristic concepts such as
+          advanced science and technology, space exploration, time travel,
+          parallel universes, ..." }
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Return data about a director (bio, birth year, death year) by name
+        </td>
+        <td>/directors/<b>[directorName]</b></td>
+        <td>GET</td>
+        <td>None</td>
+        <td>
+          A JSON object holding data about a single director, containing an ID,
+          name, bio, birth year, death year properties. Example: { "id": "1",
+          "name": "Ridley Scott", "bio": "Sir Ridley Scott is an English film
+          director and producer. He has directed, among others, the science
+          fiction films Alien, Blade Runner and The Martian, the road crime film
+          Thelma & Louise, the historical drama film Gladiator, and the war film
+          Black Hawk Down.", "birthyear": 1937, "deathyear": null }
+        </td>
+      </tr>
+      <tr>
+        <td>Allow new users to register (ie. Add a new User)</td>
+        <td>/users</td>
+        <td>POST</td>
+        <td>
+          A JSON object holding data about the User to add, structured like: {
+          "name" : "John Doe", "favoriteMovies" : ["Arizona Dream"] }
+        </td>
+        <td>
+          A JSON object holding data about the User that was added, including
+          and ID: { "id": "1", "name" : "John Doe", "favoriteMovies" : ["Arizona
+          Dream"] }
+        </td>
+      </tr>
+      <tr>
+        <td>Allow users to update their user info (username)</td>
+        <td>/users/<b>[id]</b></td>
+        <td>PUT</td>
+        <td>
+          A JSON object holding data about the User's name to update, structured
+          like: { "name" : "John Doe" }
+        </td>
+        <td>
+          A JSON object holding data about the User that was updated, including
+          an ID: { "id": "1", "name" : "Updated John Doe", "favoriteMovies" :
+          ["Arizona Dream"] }
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Allow users to add a movie to their list of favorites (showing only a
+          text that a movie has been added)
+        </td>
+        <td>/users/<b>[movieTitle]</b></td>
+        <td>POST</td>
+        <td>
+          None
+        </td>
+        <td>
+          A text message indicating whether the movie was successfully added to
+          the User's favorite movies list.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Allow users to remove a movie from their list of favorites (showing
+          only a text that a movie has been removed)
+        </td>
+        <td>/users/<b>[movieTitle]</b></td>
+        <td>DELETE</td>
+        <td>
+          None
+        </td>
+        <td>
+          A text message indicating whether the movie was successfully removed
+          from the User's favorite movies list.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Allow existing users to deregister (showing only a text that a user
+          email has been removed). (ie. Delete a User from the list of Users)
+        </td>
+        <td>/users/<b>[id]</b></td>
+        <td>DELETE</td>
+        <td>
+          None
+        </td>
+        <td>
+          A text message indicating whether the User was successfully removed.
+        </td>
+      </tr>
+    </table>
   </body>
 </html>
