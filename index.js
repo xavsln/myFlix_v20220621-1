@@ -8,11 +8,17 @@ const app = express();
 const port = 8080;
 
 const topmovies = require('./topmovies.js');
+
 let usersList = [
   {
     id: 1,
     name: 'Martin',
     favoriteMovies: ['Arizona Dream']
+  },
+  {
+    id: 2,
+    name: 'Jean',
+    favoriteMovies: ['Kagemusha']
   }
 ];
 
@@ -36,7 +42,12 @@ app.get('/movies/:movieTitle', (req, res) => {
   const movie = topmovies.topMoviesList.find(movie => movie.title === title);
 
   if (movie) {
-    res.status(201).json(movie);
+    // res.status(201).json(movie);
+    res
+      .status(201)
+      .send(
+        `Movie ${movie.name} was successfully added to the list of favorite movies.`
+      );
   } else {
     res.status(400).send('No such a movie in the database.');
   }
@@ -60,6 +71,21 @@ app.post('/users', (req, res) => {
     res.status(201).json(newUser);
   } else {
     res.status(400).send('User needs name');
+  }
+});
+
+// ADD new movie to the user list of favorite movies
+app.post('/users/:id/:movieTitle', (req, res) => {
+  const id = req.params.id;
+  const favoriteMovieToAdd = req.params.movieTitle;
+
+  let user = usersList.find(user => user.id == id);
+
+  if (user) {
+    user.favoriteMovies.push(favoriteMovieToAdd);
+    res.status(200).json(user);
+  } else {
+    res.status(400).send('No such user in the database.');
   }
 });
 
