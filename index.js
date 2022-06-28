@@ -115,6 +115,23 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
   }
 });
 
+// DELETE a User from the user list
+app.delete('/users/:id', (req, res) => {
+  const id = req.params.id;
+
+  let user = usersList.find(user => user.id == id);
+
+  if (user) {
+    usersList = usersList.filter(user => user.id !== id);
+    // res.status(200).json(user);
+    res
+      .status(200)
+      .send(`User ${id} was successfully deleted from the list of Users.`);
+  } else {
+    res.status(400).send('No such user in the database.');
+  }
+});
+
 // =============
 // PUT requests
 // =============
