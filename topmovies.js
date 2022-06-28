@@ -19,13 +19,23 @@ let topMoviesList = [
     featured: false
   },
   {
-    title: 'Movie 2',
+    title: 'Blade Runner',
     director: {
-      name: 'Test',
+      name: 'Ridley Scott',
       bio:
-        'Emir Kusturica is a Serbian film director, screenwriter, actor, producer and musician. He also has French citizenship. Kusturica is one of the most-distinguished European filmmakers since the mid-1980s, best known for surreal and naturalistic movies that express deep sympathies for people from the margins.',
-      birth: 1954
-    }
+        'Sir Ridley Scott is an English film director and producer. He has directed, among others, the science fiction films Alien, Blade Runner and The Martian, the road crime film Thelma & Louise, the historical drama film Gladiator, and the war film Black Hawk Down.',
+      birth: 1937
+    },
+    description:
+      'Rick Deckard, an ex-policeman, becomes a special agent with a mission to exterminate a group of violent androids. As he starts getting deeper into his mission, he questions his own identity.',
+    genre: {
+      name: 'Science fiction',
+      description:
+        'Science fiction is a genre of speculative fiction which typically deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, ...'
+    },
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/en/9/9f/Blade_Runner_%281982_poster%29.png',
+    featured: false
   },
   {
     title: 'Movie 3',
