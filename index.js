@@ -1,11 +1,16 @@
 const express = require('express'),
   fs = require('fs'),
-  morgan = require('morgan');
+  morgan = require('morgan'),
+  bodyParser = require('body-parser'),
+  uuid = require('uuid');
 
 const app = express();
 const port = 8080;
 
 const topmovies = require('./topmovies.js');
+
+// Setup body-parser
+app.use(bodyParser.json());
 
 // Setup the logger
 app.use(morgan('common'));
