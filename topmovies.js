@@ -5,7 +5,8 @@ let topMoviesList = [
       name: 'Emir Kusturica',
       bio:
         'Emir Kusturica is a Serbian film director, screenwriter, actor, producer and musician. He also has French citizenship. Kusturica is one of the most-distinguished European filmmakers since the mid-1980s, best known for surreal and naturalistic movies that express deep sympathies for people from the margins.',
-      birth: 1954
+      birthyear: 1954,
+      deathyear: null
     },
     description:
       'Alex travels to Arizona in order to attend his uncle\'s wedding. There, he encounters two women who have suffered atrocities of familial discord. Gradually, Alex falls in love with one of the women.',
@@ -24,7 +25,8 @@ let topMoviesList = [
       name: 'Ridley Scott',
       bio:
         'Sir Ridley Scott is an English film director and producer. He has directed, among others, the science fiction films Alien, Blade Runner and The Martian, the road crime film Thelma & Louise, the historical drama film Gladiator, and the war film Black Hawk Down.',
-      birth: 1937
+      birthyear: 1937,
+      deathyear: null
     },
     description:
       'Rick Deckard, an ex-policeman, becomes a special agent with a mission to exterminate a group of violent androids. As he starts getting deeper into his mission, he questions his own identity.',
