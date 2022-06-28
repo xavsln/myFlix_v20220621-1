@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(morgan('common'));
 
 // =============
-// POST requests
+// GET requests
 // =============
 app.use(express.static('public'));
 
@@ -61,6 +61,20 @@ app.get('/directors/:directorName', (req, res) => {
     res.status(200).json(filmWithDirector.director);
   } else {
     res.status(400).send('No such a Director name in the database.');
+  }
+});
+
+// READ - Return data about a Genre by name
+app.get('/genres/:genreName', (req, res) => {
+  const name = req.params.genreName;
+  const filmWithGenre = topmovies.topMoviesList.find(
+    movie => movie.genre.name === name
+  );
+
+  if (filmWithGenre) {
+    res.status(200).json(filmWithGenre.genre);
+  } else {
+    res.status(400).send('No such a Genre name in the database.');
   }
 });
 

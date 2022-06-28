@@ -1,5 +1,6 @@
 let topMoviesList = [
   {
+    id: 1,
     title: 'Arizona Dream',
     director: {
       name: 'Emir Kusturica',
@@ -20,6 +21,7 @@ let topMoviesList = [
     featured: false
   },
   {
+    id: 2,
     title: 'Blade Runner',
     director: {
       name: 'Ridley Scott',
@@ -40,14 +42,17 @@ let topMoviesList = [
     featured: false
   },
   {
+    id: 3,
     title: 'Movie 3',
     director: 'Director 3'
   },
   {
+    id: 4,
     title: 'Movie 4',
     director: 'Director 4'
   },
   {
+    id: 5,
     title: 'Movie 5',
     director: 'Director 5'
   }
