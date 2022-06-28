@@ -8,6 +8,7 @@ const app = express();
 const port = 8080;
 
 const topmovies = require('./topmovies.js');
+let usersList = [];
 
 // Setup body-parser
 app.use(bodyParser.json());
@@ -37,6 +38,23 @@ app.get('/movies/:movieTitle', (req, res) => {
 
 app.get('/', (req, res) => {
   res.send('Welcome to myFlix!');
+});
+
+// =============
+// POST requests
+// =============
+
+// CREATE - Allow new User to register (Add a new user to the usersList)
+app.post('/users', (req, res) => {
+  const newUser = req.body;
+
+  if (newUser.name) {
+    newUser.id = uuid.v4();
+    usersList.push(newUser);
+    res.status(201).json(newUser);
+  } else {
+    res.status(400).send('User needs name');
+  }
 });
 
 app.use((err, req, res, next) => {
