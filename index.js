@@ -8,7 +8,13 @@ const app = express();
 const port = 8080;
 
 const topmovies = require('./topmovies.js');
-let usersList = [];
+let usersList = [
+  {
+    id: 1,
+    name: 'Martin',
+    favoriteMovies: ['Arizona Dream']
+  }
+];
 
 // Setup body-parser
 app.use(bodyParser.json());
@@ -54,6 +60,25 @@ app.post('/users', (req, res) => {
     res.status(201).json(newUser);
   } else {
     res.status(400).send('User needs name');
+  }
+});
+
+// =============
+// PUT requests
+// =============
+
+// UPDATE - Allow an existing User to update its name (Updaye User name in the usersList)
+app.put('/users/:id', (req, res) => {
+  const id = req.params.id;
+  const updatedUser = req.body;
+
+  let user = usersList.find(user => user.id == id);
+
+  if (user) {
+    user.name = updatedUser.name;
+    res.status(200).json(user);
+  } else {
+    res.status(400).send('No such user in the database.');
   }
 });
 
