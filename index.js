@@ -42,12 +42,7 @@ app.get('/movies/:movieTitle', (req, res) => {
   const movie = topmovies.topMoviesList.find(movie => movie.title === title);
 
   if (movie) {
-    // res.status(201).json(movie);
-    res
-      .status(201)
-      .send(
-        `Movie ${movie.name} was successfully added to the list of favorite movies.`
-      );
+    res.status(201).json(movie);
   } else {
     res.status(400).send('No such a movie in the database.');
   }
@@ -83,7 +78,38 @@ app.post('/users/:id/:movieTitle', (req, res) => {
 
   if (user) {
     user.favoriteMovies.push(favoriteMovieToAdd);
-    res.status(200).json(user);
+    // res.status(200).json(user);
+    res
+      .status(200)
+      .send(
+        `Movie ${favoriteMovieToAdd} was successfully added to the list of favorite movies of user ${user.id}.`
+      );
+  } else {
+    res.status(400).send('No such user in the database.');
+  }
+});
+
+// =============
+// DELETE requests
+// =============
+
+// DELETE a movie from the user list of favorite movies
+app.delete('/users/:id/:movieTitle', (req, res) => {
+  const id = req.params.id;
+  const favoriteMovieToDelete = req.params.movieTitle;
+
+  let user = usersList.find(user => user.id == id);
+
+  if (user) {
+    user.favoriteMovies = user.favoriteMovies.filter(
+      title => title !== favoriteMovieToDelete
+    );
+    // res.status(200).json(user);
+    res
+      .status(200)
+      .send(
+        `Movie ${favoriteMovieToDelete} was successfully deleted from the list of favorite movies of user ${user.id}.`
+      );
   } else {
     res.status(400).send('No such user in the database.');
   }
