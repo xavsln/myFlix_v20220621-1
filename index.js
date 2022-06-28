@@ -18,8 +18,21 @@ app.use(morgan('common'));
 // GET requests
 app.use(express.static('public'));
 
+// READ - Return a list of ALL movies to the user
 app.get('/movies', (req, res) => {
   res.json(topmovies.topMoviesList);
+});
+
+// READ - Return data about a single movie by title to the user
+app.get('/movies/:movieTitle', (req, res) => {
+  const title = req.params.movieTitle;
+  const movie = topmovies.topMoviesList.find(movie => movie.title === title);
+
+  if (movie) {
+    res.status(201).json(movie);
+  } else {
+    res.status(400).send('No such a movie in the database.');
+  }
 });
 
 app.get('/', (req, res) => {
