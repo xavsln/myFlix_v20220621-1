@@ -28,7 +28,9 @@ app.use(bodyParser.json());
 // Setup the logger
 app.use(morgan('common'));
 
-// GET requests
+// =============
+// POST requests
+// =============
 app.use(express.static('public'));
 
 // READ - Return a list of ALL movies to the user
@@ -42,9 +44,23 @@ app.get('/movies/:movieTitle', (req, res) => {
   const movie = topmovies.topMoviesList.find(movie => movie.title === title);
 
   if (movie) {
-    res.status(201).json(movie);
+    res.status(200).json(movie);
   } else {
     res.status(400).send('No such a movie in the database.');
+  }
+});
+
+// READ - Return data about a Director by name
+app.get('/directors/:directorName', (req, res) => {
+  const name = req.params.directorName;
+  const filmWithDirector = topmovies.topMoviesList.find(
+    movie => movie.director.name === name
+  );
+
+  if (filmWithDirector) {
+    res.status(200).json(filmWithDirector.director);
+  } else {
+    res.status(400).send('No such a Director name in the database.');
   }
 });
 

@@ -20,7 +20,12 @@ let topMoviesList = [
   },
   {
     title: 'Movie 2',
-    director: 'Director 2'
+    director: {
+      name: 'Test',
+      bio:
+        'Emir Kusturica is a Serbian film director, screenwriter, actor, producer and musician. He also has French citizenship. Kusturica is one of the most-distinguished European filmmakers since the mid-1980s, best known for surreal and naturalistic movies that express deep sympathies for people from the margins.',
+      birth: 1954
+    }
   },
   {
     title: 'Movie 3',
