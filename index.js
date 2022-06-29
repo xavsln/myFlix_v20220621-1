@@ -104,6 +104,8 @@ app.post('/users/:id/:movieTitle', (req, res) => {
   const id = req.params.id;
   const favoriteMovieToAdd = req.params.movieTitle;
 
+  // const { id, favoriteMovieToAdd } = req.params;   // Not working. favoriteMovieToAdd would be undefined
+
   let user = usersList.find(user => user.id == id);
 
   if (user) {
