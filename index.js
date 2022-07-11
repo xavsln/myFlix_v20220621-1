@@ -2,8 +2,18 @@ const express = require('express'),
   fs = require('fs'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
-  uuid = require('uuid'),
-  models = require('.models.js');
+  uuid = require('uuid');
+
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 const app = express();
 const port = 8080;
@@ -36,7 +46,16 @@ app.use(express.static('public'));
 
 // READ - Return a list of ALL movies to the user
 app.get('/movies', (req, res) => {
-  res.json(topmovies.topMoviesList);
+  // res.json(topmovies.topMoviesList);
+
+  Movies.find()
+    .then(movies => {
+      res.status(201).json(movies);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // READ - Return data about a single movie by title to the user
