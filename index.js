@@ -2,7 +2,8 @@ const express = require('express'),
   fs = require('fs'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
-  uuid = require('uuid');
+  uuid = require('uuid'),
+  models = require('.models.js');
 
 const app = express();
 const port = 8080;
