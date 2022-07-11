@@ -60,14 +60,29 @@ app.get('/movies', (req, res) => {
 
 // READ - Return data about a single movie by title to the user
 app.get('/movies/:movieTitle', (req, res) => {
-  const title = req.params.movieTitle;
-  const movie = topmovies.topMoviesList.find(movie => movie.title === title);
+  Movies.findOne({ Title: req.params.movieTitle })
+    .then(movie => {
+      if (movie) {
+        res.status(200).json(movie);
+      } else {
+        res.status(400).send('No such a movie in the database.');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
-  if (movie) {
-    res.status(200).json(movie);
-  } else {
-    res.status(400).send('No such a movie in the database.');
-  }
+app.get('/users/:Username', (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+    .then(user => {
+      res.json(user);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // READ - Return data about a Director by name
