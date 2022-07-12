@@ -194,25 +194,22 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 // =============
 
 // DELETE a movie from the user list of favorite movies
-app.delete('/users/:id/:movieTitle', (req, res) => {
-  const id = req.params.id;
-  const favoriteMovieToDelete = req.params.movieTitle;
-
-  let user = usersList.find(user => user.id == id);
-
-  if (user) {
-    user.favoriteMovies = user.favoriteMovies.filter(
-      title => title !== favoriteMovieToDelete
-    );
-    // res.status(200).json(user);
-    res
-      .status(200)
-      .send(
-        `Movie ${favoriteMovieToDelete} was successfully deleted from the list of favorite movies of user ${user.id}.`
-      );
-  } else {
-    res.status(400).send('No such user in the database.');
-  }
+app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $pull: { favoriteMovies: req.params.MovieID }
+    },
+    { new: true }, // This line makes sure that the updated document is returned
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    }
+  );
 });
 
 // DELETE a User from the user list
