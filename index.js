@@ -74,6 +74,23 @@ app.get('/movies/:movieTitle', (req, res) => {
     });
 });
 
+// READ - Return a list of ALL Users
+app.get('/users', (req, res) => {
+  Users.find()
+    .then(users => {
+      if (!users) {
+        res.status(400).send('No User in the database.');
+      } else {
+        res.status(201).json(users);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+// READ - Return data about a User by name
 app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then(user => {
