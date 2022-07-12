@@ -171,25 +171,22 @@ app.post('/users', (req, res) => {
 });
 
 // ADD new movie to the user list of favorite movies
-app.post('/users/:id/:movieTitle', (req, res) => {
-  const id = req.params.id;
-  const favoriteMovieToAdd = req.params.movieTitle;
-
-  // const { id, favoriteMovieToAdd } = req.params;   // Not working. favoriteMovieToAdd would be undefined
-
-  let user = usersList.find(user => user.id == id);
-
-  if (user) {
-    user.favoriteMovies.push(favoriteMovieToAdd);
-    // res.status(200).json(user);
-    res
-      .status(200)
-      .send(
-        `Movie ${favoriteMovieToAdd} was successfully added to the list of favorite movies of user ${user.id}.`
-      );
-  } else {
-    res.status(400).send('No such user in the database.');
-  }
+app.post('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $addToSet: { favoriteMovies: req.params.MovieID }
+    },
+    { new: true }, // This line makes sure that the updated document is returned
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    }
+  );
 });
 
 // =============
@@ -219,20 +216,19 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 });
 
 // DELETE a User from the user list
-app.delete('/users/:id', (req, res) => {
-  const id = req.params.id;
-
-  let user = usersList.find(user => user.id == id);
-
-  if (user) {
-    usersList = usersList.filter(user => user.id !== id);
-    // res.status(200).json(user);
-    res
-      .status(200)
-      .send(`User ${id} was successfully deleted from the list of Users.`);
-  } else {
-    res.status(400).send('No such user in the database.');
-  }
+app.delete('/users/:Username', (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
+    .then(user => {
+      if (!user) {
+        res.status(400).send(req.params.Username + ' was not found');
+      } else {
+        res.status(200).send(req.params.Username + ' was deleted.');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // =============
