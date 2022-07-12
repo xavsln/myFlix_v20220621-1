@@ -104,16 +104,18 @@ app.get('/users/:Username', (req, res) => {
 
 // READ - Return data about a Director by name
 app.get('/directors/:directorName', (req, res) => {
-  const name = req.params.directorName;
-  const filmWithDirector = topmovies.topMoviesList.find(
-    movie => movie.director.name === name
-  );
-
-  if (filmWithDirector) {
-    res.status(200).json(filmWithDirector.director);
-  } else {
-    res.status(400).send('No such a Director name in the database.');
-  }
+  Movies.find({ 'Director.Name': req.params.directorName })
+    .then(filmWithDirector => {
+      if (!filmWithDirector) {
+        res.status(400).send('No such Director in the database.');
+      } else {
+        res.status(200).json(filmWithDirector);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // READ - Return data about a Genre by name
