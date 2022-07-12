@@ -120,16 +120,18 @@ app.get('/directors/:directorName', (req, res) => {
 
 // READ - Return data about a Genre by name
 app.get('/genres/:genreName', (req, res) => {
-  const name = req.params.genreName;
-  const filmWithGenre = topmovies.topMoviesList.find(
-    movie => movie.genre.name === name
-  );
-
-  if (filmWithGenre) {
-    res.status(200).json(filmWithGenre.genre);
-  } else {
-    res.status(400).send('No such a Genre name in the database.');
-  }
+  Movies.findOne({ 'Genre.Name': req.params.genreName })
+    .then(filmWithGenre => {
+      if (!filmWithGenre) {
+        res.status(400).send('No such a Genre in the database.');
+      } else {
+        res.status(200).json(filmWithGenre.Genre.Description);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 app.get('/', (req, res) => {
