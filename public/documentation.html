@@ -116,6 +116,20 @@
         </td>
       </tr>
       <tr>
+        <td>Return a list of ALL registered users to the user</td>
+        <td>/users</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about all the users</td>
+      </tr>
+      <tr>
+        <td>Return data about a single registered user to the user</td>
+        <td>/users/<b>[username]</b></td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about a single user</td>
+      </tr>
+      <tr>
         <td>Allow new users to register (ie. Add a new User)</td>
         <td>/users</td>
         <td>POST</td>
@@ -130,8 +144,11 @@
         </td>
       </tr>
       <tr>
-        <td>Allow users to update their user info (username)</td>
-        <td>/users/<b>[id]</b></td>
+        <td>
+          Allow users to update their user info (username, password, email, date
+          of birth)
+        </td>
+        <td>/users/<b>[username]</b></td>
         <td>PUT</td>
         <td>
           A JSON object holding data about the User's name to update, structured
@@ -139,8 +156,10 @@
         </td>
         <td>
           A JSON object holding data about the User that was updated, including
-          an ID: { "id": "1", "name" : "Updated John Doe", "favoriteMovies" :
-          ["Arizona Dream"] }
+          an ID: { "id": "1", "Username" : "Updated John Doe", "Password":
+          "12345", "Email": "john@doe.com", "Birthday": "1985-01-01",
+          "favoriteMovies" : ["62c82486d2ff5d648ef1538c",
+          "62c823b0d2ff5d648ef1538b", "62c82265d2ff5d648ef15389"] }
         </td>
       </tr>
       <tr>
@@ -148,7 +167,7 @@
           Allow users to add a movie to their list of favorites (showing only a
           text that a movie has been added)
         </td>
-        <td>/users/<b>[movieTitle]</b></td>
+        <td>/users/<b>[username]</b>/movies/<b>[movieTitle]</b></td>
         <td>POST</td>
         <td>
           None
@@ -163,7 +182,7 @@
           Allow users to remove a movie from their list of favorites (showing
           only a text that a movie has been removed)
         </td>
-        <td>/users/<b>[movieTitle]</b></td>
+        <td>/users/<b>[username]</b>/movies/<b>[movieTitle]</b></td>
         <td>DELETE</td>
         <td>
           None
@@ -178,7 +197,7 @@
           Allow existing users to deregister (showing only a text that a user
           email has been removed). (ie. Delete a User from the list of Users)
         </td>
-        <td>/users/<b>[id]</b></td>
+        <td>/users/<b>[username]</b></td>
         <td>DELETE</td>
         <td>
           None
