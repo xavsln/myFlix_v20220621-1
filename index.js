@@ -239,7 +239,7 @@ app.delete('/users/:id', (req, res) => {
 // PUT requests
 // =============
 
-// UPDATE - Allow an existing User to update its name (Updaye User name in the usersList)
+// UPDATE - Allow an existing User to update its details (Update User name in the usersList)
 app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
