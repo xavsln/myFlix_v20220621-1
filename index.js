@@ -240,18 +240,27 @@ app.delete('/users/:id', (req, res) => {
 // =============
 
 // UPDATE - Allow an existing User to update its name (Updaye User name in the usersList)
-app.put('/users/:id', (req, res) => {
-  const id = req.params.id;
-  const updatedUser = req.body;
-
-  let user = usersList.find(user => user.id == id);
-
-  if (user) {
-    user.name = updatedUser.name;
-    res.status(200).json(user);
-  } else {
-    res.status(400).send('No such user in the database.');
-  }
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $set: {
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday
+      }
+    },
+    { new: true }, // This line makes sure that the updated document is returned
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    }
+  );
 });
 
 app.use((err, req, res, next) => {
