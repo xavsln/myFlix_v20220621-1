@@ -213,13 +213,13 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
 });
 
 // DELETE a User from the user list
-app.delete('/users/:Username', (req, res) => {
-  Users.findOneAndRemove({ Username: req.params.Username })
+app.delete('/users/:id', (req, res) => {
+  Users.findOneAndRemove({ _id: req.params.id })
     .then(user => {
       if (!user) {
-        res.status(400).send(req.params.Username + ' was not found');
+        res.status(400).send(req.params.id + ' was not found');
       } else {
-        res.status(200).send(req.params.Username + ' was deleted.');
+        res.status(200).send(req.params.id + ' was deleted.');
       }
     })
     .catch(err => {
@@ -233,9 +233,9 @@ app.delete('/users/:Username', (req, res) => {
 // =============
 
 // UPDATE - Allow an existing User to update its details (Update User name in the usersList)
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:id', (req, res) => {
   Users.findOneAndUpdate(
-    { Username: req.params.Username },
+    { _id: req.params.id },
     {
       $set: {
         Username: req.body.Username,
