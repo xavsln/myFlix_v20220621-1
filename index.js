@@ -4,11 +4,6 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   uuid = require('uuid');
 
-let auth = require('./auth')(app);
-
-const passport = require('passport');
-require('./passport');
-
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
@@ -22,6 +17,11 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', {
 
 const app = express();
 const port = 8080;
+
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport');
 
 const topmovies = require('./topmovies.js');
 
