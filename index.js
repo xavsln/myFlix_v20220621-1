@@ -4,6 +4,11 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   uuid = require('uuid');
 
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport');
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
@@ -45,18 +50,22 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 // READ - Return a list of ALL movies to the user
-app.get('/movies', (req, res) => {
-  // res.json(topmovies.topMoviesList);
+app.get(
+  '/movies',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    // res.json(topmovies.topMoviesList);
 
-  Movies.find()
-    .then(movies => {
-      res.status(201).json(movies);
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
+    Movies.find()
+      .then(movies => {
+        res.status(201).json(movies);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  }
+);
 
 // READ - Return data about a single movie by title to the user
 app.get('/movies/:movieTitle', (req, res) => {
