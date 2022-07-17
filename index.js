@@ -92,18 +92,38 @@ app.get(
   '/users',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Users.find()
-      .then(users => {
-        if (!users) {
-          res.status(400).send('No User in the database.');
-        } else {
-          res.status(201).json(users);
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      });
+    let user = req.user;
+    // res.send(user.Role);
+    if (user.Role == 'admin') {
+      // res.send('You are an Admin');
+      Users.find()
+        .then(users => {
+          if (!users) {
+            res.status(400).send('No User in the database.');
+          } else {
+            res.status(201).json(users);
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          res.status(500).send('Error: ' + err);
+        });
+    } else {
+      res.status(403).send('Not authorized.');
+    }
+
+    // Users.find()
+    //   .then(users => {
+    //     if (!users) {
+    //       res.status(400).send('No User in the database.');
+    //     } else {
+    //       res.status(201).json(users);
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.error(err);
+    //     res.status(500).send('Error: ' + err);
+    //   });
   }
 );
 
