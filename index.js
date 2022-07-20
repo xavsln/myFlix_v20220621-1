@@ -109,7 +109,7 @@ app.get(
           res.status(500).send('Error: ' + err);
         });
     } else {
-      res.status(403).send('Not authorized.');
+      res.status(401).send('Not authorized.');
     }
 
     // Users.find()
