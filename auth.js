@@ -27,7 +27,7 @@ module.exports = router => {
         if (error) {
           res.send(error);
         }
-        let token = generateJWTToken(user.toJSON());
+        let token = generateJWTToken(user.toJSON()); // This is probably where the payload is created from User data... Need to see how to remove the User Password
         return res.json({ user, token });
       });
     })(req, res);

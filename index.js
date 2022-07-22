@@ -2,7 +2,8 @@ const express = require('express'),
   fs = require('fs'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
-  uuid = require('uuid');
+  uuid = require('uuid'),
+  jwt_decode = require('jwt-decode');
 
 const mongoose = require('mongoose');
 const Models = require('./models.js');
@@ -92,16 +93,19 @@ app.get(
   '/users',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    let user = req.user;
-    // res.send(user.Role);
-    if (user.Role == 'admin') {
-      // res.send('You are an Admin');
+    let token = req.headers.authorization;
+    let decodedToken = jwt_decode(token);
+
+    console.log(token);
+    console.log(decodedToken);
+
+    if (decodedToken.Role == 'admin') {
       Users.find()
         .then(users => {
           if (!users) {
             res.status(400).send('No User in the database.');
           } else {
-            res.status(201).json(users);
+            res.status(200).json(users);
           }
         })
         .catch(err => {
@@ -111,19 +115,18 @@ app.get(
     } else {
       res.status(401).send('Not authorized.');
     }
-
-    // Users.find()
-    //   .then(users => {
-    //     if (!users) {
-    //       res.status(400).send('No User in the database.');
-    //     } else {
-    //       res.status(201).json(users);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.error(err);
-    //     res.status(500).send('Error: ' + err);
-    //   });
+    Users.find()
+      .then(users => {
+        if (!users) {
+          res.status(404).send('No User in the database.');
+        } else {
+          res.status(200).json(users);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
   }
 );
 
