@@ -30,7 +30,7 @@ module.exports = router => {
         let customUserForToken = {
           _id: user._id,
           Username: user.Username,
-          Role: user.Role
+          Role: user.Role // Define the Role to allow only Admin to access all User's data
         };
         console.log(customUserForToken);
         let token = generateJWTToken(customUserForToken);
