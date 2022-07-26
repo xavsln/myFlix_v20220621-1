@@ -19,7 +19,7 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', {
 });
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 const cors = require('cors');
 app.use(cors());
@@ -380,6 +380,6 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-app.listen(port, () => {
-  console.log(`App is running on port ${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log('Listening on Port ' + port);
 });
