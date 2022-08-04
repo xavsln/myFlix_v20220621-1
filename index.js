@@ -13,15 +13,15 @@ const Users = Models.User;
 
 const { check, validationResult } = require('express-validator');
 
-// mongoose.connect('mongodb://localhost:27017/myFlixDB', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
-
-mongoose.connect(process.env.CONNECTION_URI, {
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
+// mongoose.connect(process.env.CONNECTION_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -33,21 +33,6 @@ let auth = require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
-
-const topmovies = require('./topmovies.js');
-
-let usersList = [
-  {
-    id: 1,
-    name: 'Martin',
-    favoriteMovies: ['Arizona Dream']
-  },
-  {
-    id: 2,
-    name: 'Jean',
-    favoriteMovies: ['Kagemusha']
-  }
-];
 
 // Setup body-parser
 app.use(bodyParser.json());
@@ -65,8 +50,6 @@ app.get(
   '/movies',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    // res.json(topmovies.topMoviesList);
-
     Movies.find()
       .then(movies => {
         res.status(201).json(movies);
@@ -105,9 +88,6 @@ app.get(
   (req, res) => {
     let token = req.headers.authorization;
     let decodedToken = jwt_decode(token);
-
-    console.log(token);
-    console.log(decodedToken);
 
     if (decodedToken.Role == 'admin') {
       Users.find()
@@ -265,7 +245,7 @@ app.post(
     Users.findOneAndUpdate(
       { Username: req.params.Username },
       {
-        $addToSet: { favoriteMovies: req.params.MovieID }
+        $addToSet: { FavoriteMovies: req.params.MovieID }
       },
       { new: true }, // This line makes sure that the updated document is returned
       (err, updatedUser) => {
@@ -292,7 +272,7 @@ app.delete(
     Users.findOneAndUpdate(
       { Username: req.params.Username },
       {
-        $pull: { favoriteMovies: req.params.MovieID }
+        $pull: { FavoriteMovies: req.params.MovieID }
       },
       { new: true }, // This line makes sure that the updated document is returned
       (err, updatedUser) => {
