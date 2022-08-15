@@ -18,10 +18,10 @@ const { check, validationResult } = require('express-validator');
 //   useUnifiedTopology: true
 // });
 
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+// mongoose.connect(process.env.CONNECTION_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -48,7 +48,7 @@ app.use(express.static('public'));
 // READ - Return a list of ALL movies to the user
 app.get(
   '/movies',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Movies.find()
       .then(movies => {
