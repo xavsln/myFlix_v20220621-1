@@ -13,6 +13,11 @@ const Users = Models.User;
 
 const { check, validationResult } = require('express-validator');
 
+const app = express();
+// Setup body-parser
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 // Connect to local mongodb (use another shell and run mongosh)
 mongoose.connect('mongodb://localhost:27017/myFlixDB', {
   useNewUrlParser: true,
@@ -25,7 +30,6 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', {
 //   useUnifiedTopology: true
 // });
 
-const app = express();
 const port = process.env.PORT || 8080;
 
 const cors = require('cors');
@@ -35,10 +39,6 @@ let auth = require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
-
-// Setup body-parser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // Setup the logger
 app.use(morgan('common'));
