@@ -13,16 +13,17 @@ const Users = Models.User;
 
 const { check, validationResult } = require('express-validator');
 
-// mongoose.connect('mongodb://localhost:27017/myFlixDB', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
-
-// Connect to mongodb
-mongoose.connect(process.env.CONNECTION_URI, {
+// Connect to local mongodb (use another shell and run mongosh)
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
+// Connect to mongodb
+// mongoose.connect(process.env.CONNECTION_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -37,6 +38,7 @@ require('./passport');
 
 // Setup body-parser
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Setup the logger
 app.use(morgan('common'));
