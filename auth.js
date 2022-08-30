@@ -17,19 +17,11 @@ let generateJWTToken = user => {
 module.exports = router => {
   router.post('/login', (req, res) => {
     passport.authenticate('local', { session: false }, (error, user, info) => {
-      // console.log('Check Req.body data from auth.js: ', req.body.Username);
-
-      console.log('User data from auth.js: ', user);
-
-      console.log('Error data from auth.js: ', error);
-
-      console.log('Info data from auth.js: ', info);
-
       if (error || !user) {
         console.log(user);
         return res.status(400).json({
           message: 'Something is not right',
-          user: user
+          error: error
         });
       }
 
@@ -42,7 +34,7 @@ module.exports = router => {
           Username: user.Username,
           Role: user.Role // Define the Role to allow only Admin to access all User's data
         };
-        console.log(customUserForToken);
+        // console.log(customUserForToken);
         let token = generateJWTToken(customUserForToken);
         return res.json({ user, token });
       });

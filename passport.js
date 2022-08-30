@@ -14,11 +14,10 @@ passport.use(
       passwordField: 'Password'
     },
     (username, password, callback) => {
-      // console.log(req.body.Username);
       console.log(username + '  ' + password);
 
       Users.findOne({ Username: username }, (error, user) => {
-        console.log('Check existing user in passport: ', user);
+        // console.log('Check existing user in passport: ', user);
 
         if (error) {
           console.log(error);
