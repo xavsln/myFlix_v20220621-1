@@ -19,16 +19,16 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Connect to local mongodb (use another shell and run mongosh)
-mongoose.connect('mongodb://localhost:27017/myFlixDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-// Connect to mongodb
-// mongoose.connect(process.env.CONNECTION_URI, {
+// mongoose.connect('mongodb://localhost:27017/myFlixDB', {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true
 // });
+
+// Connect to mongodb Atlas
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 const port = process.env.PORT || 8080;
 
