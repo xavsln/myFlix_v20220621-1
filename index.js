@@ -50,6 +50,10 @@ app.use(morgan("common"));
 app.use(express.static("public"));
 
 // READ - Return a list of ALL movies to the user
+/**
+ * Gets all movies data from the API
+ * @returns An array of movies objects
+ */
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -66,6 +70,10 @@ app.get(
 );
 
 // READ - Return data about a single movie by title to the user
+/**
+ * Gets a single movie data from the API
+ * @returns A movie object
+ */
 app.get(
   "/movies/:movieTitle",
   passport.authenticate("jwt", { session: false }),
@@ -86,6 +94,10 @@ app.get(
 );
 
 // READ - Return a list of ALL Users
+/**
+ * Gets a list of users from the API
+ * @returns An array if all users as object in json
+ */
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -125,6 +137,10 @@ app.get(
 );
 
 // READ - Return data about a User by name
+/**
+ * Gets data about a single user from the API
+ * @returns an object in json
+ */
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -141,6 +157,10 @@ app.get(
 );
 
 // READ - Return data about a Director by name
+/**
+ * Gets information about a Movie Director
+ * @returns an object in json format
+ */
 app.get(
   "/directors/:directorName",
   passport.authenticate("jwt", { session: false }),
@@ -161,6 +181,10 @@ app.get(
 );
 
 // READ - Return data about a Genre by name
+/**
+ * Gets information about a Movie Genre
+ * @returns an object in json format
+ */
 app.get(
   "/genres/:genreName",
   passport.authenticate("jwt", { session: false }),
@@ -189,6 +213,10 @@ app.get("/", (req, res) => {
 // =============
 
 // CREATE - Allow new User to register (Add a new user to the usersList)
+/**
+ * Registers a new user
+ * @returns a new user object in json format
+ */
 app.post(
   "/users",
   [
@@ -240,6 +268,10 @@ app.post(
 );
 
 // ADD new movie to the user list of favorite movies
+/**
+ * Adds a selected movie to the user's list of favorite movies
+ * @returns an object in json format
+ */
 app.post(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -267,6 +299,10 @@ app.post(
 // =============
 
 // DELETE a movie from the user list of favorite movies
+/**
+ * Deletes a selected movie from the user's list of favorite movies
+ * @returns an object in json format
+ */
 app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -290,6 +326,10 @@ app.delete(
 );
 
 // DELETE a User from the user list
+/**
+ * Delete a User
+ * @returns an object in json format
+ */
 app.delete(
   "/users/:id",
   passport.authenticate("jwt", { session: false }),
@@ -314,6 +354,10 @@ app.delete(
 // =============
 
 // UPDATE - Allow an existing User to update its details (Update User name in the usersList)
+/**
+ * Update User's data
+ * @returns an object in json format
+ */
 app.put(
   "/users/:id",
   passport.authenticate("jwt", { session: false }),
