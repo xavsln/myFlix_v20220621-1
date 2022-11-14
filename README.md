@@ -1,6 +1,6 @@
 # Welcome !
 
-This is a **public API** where users can request data about **a selection of movies**.
+This is an **API** where users can request data about **a selection of movies**.
 
 For each movie included in the database, data returned by the API include:
 
