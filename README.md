@@ -30,11 +30,11 @@ This App main features include:
 
 # 2. Link to the online documentation page
 
-https://themyflixapp.herokuapp.com/documentation.html
+- https://themyflixapp.herokuapp.com/documentation.html
 
 <br>
 
 # 3. Example of Front-end App developed using this API
 
-https://themyflix.netlify.app
-https://xavsln.github.io/myFlix-Angular-client/welcome
+- https://themyflix.netlify.app
+- https://xavsln.github.io/myFlix-Angular-client/welcome
